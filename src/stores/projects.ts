@@ -1,13 +1,26 @@
 import { create } from 'zustand';
+import {Project, ProjectsDTO} from "../types";
 
 const projectsURL = 'https://integrations.api.evercity.dev/forwards-dapp/api/v1/projects';
 
-const useProjectsStore = create(
+interface IProjectsState {
+  projects: Project[];
+  fetch(): Promise<void>;
+}
+
+const useProjectsStore = create<IProjectsState>(
   (set) => ({
     projects: [],
     fetch: async () => {
-      const response = await fetch(projectsURL);
-      set({ projects: await response.json() });
+      const response = await fetch(projectsURL).then(res => res.json()) as ProjectsDTO;
+      set({ projects: response.data.projects.map(project => ({
+          name: project.data.name,
+          token: project.token,
+          categories: project.data.categories,
+          image: project.data.image,
+          company: project.company,
+          country: project.data.country,
+        })) });
     },
   }),
 );

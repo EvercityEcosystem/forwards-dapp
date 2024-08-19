@@ -149,7 +149,7 @@ const AppLayout = () => {
                   />
                 }}
                 className="justify-start transition-transform"
-                name={currentAccountId.toString()}
+                name={currentAccountId?.toString()}
               />
               <Icon className="text-default-400" icon="lucide:chevrons-up-down" width={16} />
             </Button>
@@ -157,7 +157,7 @@ const AppLayout = () => {
           <DropdownMenu
             aria-label="Account switcher"
             variant="flat"
-            onAction={(key) => selectAccount(key)}
+            onAction={(key) => selectAccount(key.toString())}
           >
             {accountIds.map((account) => (
               <DropdownItem key={account.toString()} textValue={account.toString()}>
