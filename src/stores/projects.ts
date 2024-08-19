@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import {Project, ProjectsDTO} from "../types";
 
-const projectsURL = 'https://integrations.api.evercity.dev/forwards-dapp/api/v1/projects';
+const projectsURL = `${import.meta.env.VITE_API_URL}/forwards-dapp/api/v1/projects`;
 
 interface IProjectsState {
   projects: Project[];

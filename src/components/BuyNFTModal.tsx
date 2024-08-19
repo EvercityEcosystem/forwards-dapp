@@ -13,7 +13,7 @@ export const BuyNFTModal = ({ isOpen, onOpenChange }: BuyNFTModalProps) => {
     <ModalContent>
       {() => (
         <>
-          <ModalHeader className="flex flex-col gap-1">{project!.name}</ModalHeader>
+          <ModalHeader className="flex flex-col gap-1">{project!.name} | NFT</ModalHeader>
           <ModalBody>
             Price: {project!.token.price} ℏ
           </ModalBody>
