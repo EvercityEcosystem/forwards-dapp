@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 
 function useFetchBalance(accountId: string) {
-  const [balance, setBalance] = useState('');
+  const [balance, setBalance] = useState<{
+    hBars: number,
+    tokens: object[]
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,9 +21,15 @@ function useFetchBalance(accountId: string) {
         }
 
         const data = await response.json();
-        const balance = Number((data?.balance?.balance || 0) / (10 ** 9)).toFixed(2);
+        if(!data) {
+          throw new Error(`Error loading balance`);
+        }
+        const balance = Number((data.balance.balance || 0) / (10 ** 9)).toFixed(2);
 
-        setBalance(`${balance} HBAR`);
+        setBalance({
+          hBars: balance,
+          tokens: data.balance.tokens
+        });
       } catch (err) {
         setError(err.message);
       } finally {
