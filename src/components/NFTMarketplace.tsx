@@ -1,11 +1,12 @@
-import {useMemo, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import {MascotCard} from "./MascotCard";
 import useMintMascotStore from "../stores/mintMascotStore";
 import {Mascot} from "../types";
 import {BuyMascotModal} from "./BuyMascotModal";
 import useAuthStore from "../stores/accounts";
 import useFetchBalance from "../hooks/useFetchBalance";
-import { mascots } from "../config";
+import useMascotsStore from "../stores/mascotsStore.ts";
+import {Spinner} from "@nextui-org/react";
 
 const NFTMarketplace = () => {
   const [openBuyModal, setOpenBuyModal] = useState(false);
@@ -14,7 +15,12 @@ const NFTMarketplace = () => {
     state.currentAccountId,
    );
 
+  const [fetch, mascots, loading] = useMascotsStore(state => [state.fetch, state.mascots, state.loading]);
   const { balance } =  useFetchBalance(currentAccountId);
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const onClickMascot = (mascot: Mascot) => {
     selectMascot(mascot);
@@ -26,7 +32,11 @@ const NFTMarketplace = () => {
       ...mascot,
       isBought: !!balance?.tokens.find(token => mascot.tokenId === token.token_id && token.balance > 0)
     }));
-  }, [balance]);
+  }, [balance, loading]);
+
+  if(loading) {
+    return <Spinner />;
+  }
 
   return (<>
     <div>
