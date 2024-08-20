@@ -65,7 +65,7 @@ const AppCore = () => {
     if (!isConnected || !currentAccountId) {
       navigate('/connect');
     } else {
-      navigate('/app');
+      navigate('/app/mascots');
     }
   }, [navigate, isConnected, currentAccountId]);
 

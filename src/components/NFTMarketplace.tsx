@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {MascotCard} from "./MascotCard";
 import useMintMascotStore from "../stores/mintMascotStore";
 import {Mascot} from "../types";
@@ -21,6 +21,13 @@ const NFTMarketplace = () => {
     setOpenBuyModal(true);
   };
 
+  const enhancedMascots = useMemo(() => {
+    return mascots.map((mascot) => ({
+      ...mascot,
+      isBought: !!balance?.tokens.find(token => mascot.tokenId === token.token_id && token.balance > 0)
+    }));
+  }, [balance]);
+
   return (<>
     <div>
       <header className="flex items-center gap-3 rounded-medium border-small border-divider p-4">
@@ -28,19 +35,18 @@ const NFTMarketplace = () => {
       </header>
       <main className="mt-4 h-full w-full overflow-visible">
         <section id="My NFTs" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-          {mascots.map((mascot) => {
-            const isBouhgt = Boolean(balance?.tokens.find((token) => mascot.tokenId === token.token_id && token.balance !== 0))
-            return (<MascotCard
-              isBought={isBouhgt}
-              image={mascot.image}
-              onClick={() => {
-                if(!isBouhgt) {
-                  onClickMascot(mascot as Mascot)
-                }
-              }}
-                name={mascot.name}
-                />)
-          })}
+          {enhancedMascots.map((mascot) => <MascotCard
+            isBought={mascot.isBought}
+            image={mascot.image}
+            onClick={() => {
+              if (mascot.isBought) {
+                return;
+              }
+
+              onClickMascot(mascot as Mascot)
+            }}
+            name={mascot.name}
+          />)}
         </section>
       </main>
     </div>
