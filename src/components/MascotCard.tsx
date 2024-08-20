@@ -15,7 +15,6 @@ export const MascotCard = ({name, isBought = false, onClick, image}: MascotCardP
     )}
     onClick={onClick}
   >
-
       <img
         src={image}
         alt="Product" className="h-80 w-80 object-cover rounded-t-xl"/>

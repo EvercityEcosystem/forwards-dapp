@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 function useFetchBalance(accountId: string | null) {
   const [balance, setBalance] = useState<{
     hBars: number,
-    tokens: object[]
+    tokens: {token_id: string; balance: number}[],
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

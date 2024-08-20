@@ -1,8 +1,5 @@
-"use client";
-
 import type { SidebarItem } from "./Sidebar";
 
-import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useMediaQuery } from "usehooks-ts";
