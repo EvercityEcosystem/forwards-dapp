@@ -23,7 +23,7 @@ if(!marketplace) {
   throw new Error("Missing VITE_MARKETPLACE_ID");
 }
 
-const usePurchaseStore = create<PurchaseStore>(
+const usePurchaseForwardStore = create<PurchaseStore>(
   (set, get) => ({
     project: null,
     loading: false,
@@ -51,4 +51,4 @@ const usePurchaseStore = create<PurchaseStore>(
   }),
 );
 
-export default usePurchaseStore;
+export default usePurchaseForwardStore;

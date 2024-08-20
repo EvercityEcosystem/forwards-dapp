@@ -39,3 +39,11 @@ export type ProjectsDTO = {
     projects: ProjectDTO[];
   };
 }
+
+
+export type Mascot = {
+  name: string;
+  type: string;
+  tokenId: string;
+  level: number;
+}

@@ -2,13 +2,13 @@ import {useEffect, useState} from "react";
 import useProjectsStore from "../stores/projects";
 import {ProjectCard} from "./ProjectCard";
 import { BuyNFTModal } from "./BuyNFTModal";
-import usePurchaseStore from "../stores/purchase";
+import usePurchaseForwardStore from "../stores/purchaseForwardStore";
 import {Project} from "../types";
 
 const Projects = () => {
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [projects, fetch] = useProjectsStore((state) => [state.projects, state.fetch]);
-  const selectProject = usePurchaseStore((state) => state.selectProject)
+  const selectProject = usePurchaseForwardStore((state) => state.selectProject)
 
   useEffect(() => {
     fetch();
@@ -24,7 +24,7 @@ const Projects = () => {
   return (<>
     <div>
       <header className="flex items-center gap-3 rounded-medium border-small border-divider p-4">
-        <h2 className="text-medium font-medium text-default-700">Projects</h2>
+        <h2 className="text-medium font-medium text-default-700">Forwards</h2>
       </header>
       <main className="mt-4 h-full w-full overflow-visible">
         <section id="Projects" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">

@@ -39,16 +39,16 @@ const sidebarItems: SidebarItem[] = [
     title: "Home",
   },
   {
-    key: "projects",
-    href: "projects",
+    key: "forwards",
+    href: "forwards",
     icon: "solar:widget-2-outline",
-    title: "Projects",
+    title: "Forwards",
   },
   {
-    key: "nfts",
-    href: "nfts",
+    key: "mascots",
+    href: "mascots",
     icon: "ri:nft-line",
-    title: "NFTs",
+      title: "Mascots",
   },
   {
     key: "settings",
@@ -141,10 +141,10 @@ const AppLayout = () => {
             </CardFooter>
           </Card>
         </ScrollShadow>
-        
+
         <div className="flex justify-center m-2">
           <Chip>
-            Balance: {balance}
+            Balance: {balance?.hBars}
           </Chip>
         </div>
 

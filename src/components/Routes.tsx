@@ -28,11 +28,11 @@ const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path: "projects",
+            path: "forwards",
             element: <Projects />,
           },
           {
-            path: "nfts",
+            path: "mascots",
             element: <NFTMarketplace />,
           },
           {
