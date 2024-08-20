@@ -2,7 +2,7 @@
 
 import type { SidebarItem } from "./Sidebar";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useMediaQuery } from "usehooks-ts";
@@ -20,13 +20,16 @@ import {
   DropdownTrigger,
   Input,
   Spacer,
+  Chip
 } from "@nextui-org/react";
 
 import useAuthStore from '../stores/accounts';
 
 import Sidebar from "./Sidebar";
+
 import { hc } from "../helpers/hashconnect";
 import { cn } from "../helpers/cn";
+import useFetchBalance from '../hooks/useFetchBalance';
 
 const sidebarItems: SidebarItem[] = [
   {
@@ -70,6 +73,8 @@ const AppLayout = () => {
 
   const navigate = useNavigate();
   const isCompact = useMediaQuery("(max-width: 768px)");
+
+  const { balance, loading } = useFetchBalance(currentAccountId);
 
   return (
     <div className="flex h-dvh w-full">
@@ -136,6 +141,12 @@ const AppLayout = () => {
             </CardFooter>
           </Card>
         </ScrollShadow>
+        
+        <div className="flex justify-center m-2">
+          <Chip>
+            Balance: {balance}
+          </Chip>
+        </div>
 
         <Dropdown placement="top">
           <DropdownTrigger>
