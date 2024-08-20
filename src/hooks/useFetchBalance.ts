@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useFetchBalance(accountId: string) {
+function useFetchBalance(accountId: string | null) {
   const [balance, setBalance] = useState<{
     hBars: number,
     tokens: object[]
@@ -10,6 +10,10 @@ function useFetchBalance(accountId: string) {
 
   useEffect(() => {
     async function fetchBalance() {
+      if (!accountId) {
+        return;
+      }
+
       const url = `https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}`;
 
       try {
@@ -24,7 +28,7 @@ function useFetchBalance(accountId: string) {
         if(!data) {
           throw new Error(`Error loading balance`);
         }
-        const balance = Number((data.balance.balance || 0) / (10 ** 9)).toFixed(2);
+        const balance = Number((data.balance.balance || 0) / (10 ** 8)).toFixed(2);
 
         setBalance({
           hBars: balance,

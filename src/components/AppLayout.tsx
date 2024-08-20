@@ -33,22 +33,16 @@ import useFetchBalance from '../hooks/useFetchBalance';
 
 const sidebarItems: SidebarItem[] = [
   {
-    key: "home",
+    key: "mascots",
     href: "",
-    icon: "solar:home-2-linear",
-    title: "Home",
+    icon: "ri:nft-line",
+    title: "Mascots",
   },
   {
     key: "forwards",
     href: "forwards",
     icon: "solar:widget-2-outline",
     title: "Forwards",
-  },
-  {
-    key: "mascots",
-    href: "mascots",
-    icon: "ri:nft-line",
-      title: "Mascots",
   },
   {
     key: "settings",
@@ -74,7 +68,7 @@ const AppLayout = () => {
   const navigate = useNavigate();
   const isCompact = useMediaQuery("(max-width: 768px)");
 
-  const { balance, loading } = useFetchBalance(currentAccountId);
+  const { balance } = useFetchBalance(currentAccountId);
 
   return (
     <div className="flex h-dvh w-full">
@@ -88,7 +82,7 @@ const AppLayout = () => {
       >
         <div className="flex items-center justify-center mb-4">
           <div className="flex items-center justify-center">
-            <img className="text-background object-fill h-14" src="https://static.tildacdn.com/tild6432-6231-4962-b536-633739353663/evercity_logo.png"/>
+            <img className="text-background object-fill h-14" src="/evercity_logo.png"/>
           </div>
         </div>
         <div className="flex flex-col gap-y-2">
@@ -144,7 +138,7 @@ const AppLayout = () => {
 
         <div className="flex justify-center m-2">
           <Chip>
-            Balance: {balance?.hBars}
+            Balance: {balance?.hBars} HBAR
           </Chip>
         </div>
 

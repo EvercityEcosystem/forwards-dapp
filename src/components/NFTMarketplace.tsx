@@ -17,7 +17,7 @@ const NFTMarketplace = () => {
   const { balance } =  useFetchBalance(currentAccountId);
 
   const onClickMascot = (mascot: Mascot) => {
-    selectMascot(mascot)
+    selectMascot(mascot);
     setOpenBuyModal(true);
   };
 
@@ -28,7 +28,7 @@ const NFTMarketplace = () => {
       </header>
       <main className="mt-4 h-full w-full overflow-visible">
         <section id="My NFTs" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-          {mascots.map((mascot)=> <MascotCard
+          {mascots.map((mascot) => <MascotCard
             isBought={balance?.tokens.find(token => mascot.tokenId === token.token_id)?.balance !== 0}
             image={mascot.image}
             onClick={() => {
