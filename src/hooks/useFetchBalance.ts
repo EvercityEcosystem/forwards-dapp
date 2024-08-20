@@ -14,7 +14,7 @@ function useFetchBalance(accountId: string | null) {
         return;
       }
 
-      const url = `https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}`;
+      const url = `https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}?limit=1000`;
 
       try {
         setLoading(true);

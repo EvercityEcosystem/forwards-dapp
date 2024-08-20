@@ -15,7 +15,7 @@ export const tokenAssociate = async (
     accountId: string;
   }
 ) => {
-  const response = await fetch(`https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}`).then(res => res.json());
+  const response = await fetch(`https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}?limit=1000`).then(res => res.json());
   const associatedToken = response.balance.tokens.find((token: {token_id: string}) => token.token_id === tokenId);
 
   if(associatedToken) {
@@ -38,7 +38,7 @@ export const tokenAssociate = async (
 
 
 const getAvailableSerialNumber = async (tokenId: string, from: string) => {
-  const response = await fetch(`https://testnet.mirrornode.hedera.com/api/v1/accounts/${from}/nfts`).then(res => res.json());
+  const response = await fetch(`https://testnet.mirrornode.hedera.com/api/v1/accounts/${from}/nfts?limit=1000`).then(res => res.json());
   return response.nfts.filter((nft: {token_id: string}) => nft.token_id === tokenId).map((nft: {serial_number: number}) => nft.serial_number);
 }
 
