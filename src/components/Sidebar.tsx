@@ -5,10 +5,10 @@ import {
   type ListboxSectionProps,
   type Selection,
 } from "@nextui-org/react";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Listbox, Tooltip, ListboxItem, ListboxSection } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { cn } from "../helpers/cn";
 
@@ -57,7 +57,14 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
     ref,
   ) => {
     const navigate = useNavigate();
+    const location = useLocation();
+
     const [selected, setSelected] = React.useState<React.Key>(defaultSelectedKey);
+
+    useEffect(() => {
+      const pagePath = location.pathname.split('/app/')[1];
+      setSelected(pagePath);
+    }, [location]);
 
     const sectionClasses = {
       ...sectionClassesProp,

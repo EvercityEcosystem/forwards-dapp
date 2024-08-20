@@ -34,7 +34,7 @@ import useFetchBalance from '../hooks/useFetchBalance';
 const sidebarItems: SidebarItem[] = [
   {
     key: "mascots",
-    href: "",
+    href: "mascots",
     icon: "ri:nft-line",
     title: "Mascots",
   },
@@ -129,7 +129,7 @@ const AppLayout = () => {
               </p>
             </CardBody>
             <CardFooter className="absolute -bottom-8 justify-center">
-              <Button className="px-10" color="primary" radius="full" onClick={() => navigate('nfts')}>
+              <Button className="px-10" color="primary" radius="full" onClick={() => navigate('forwards')}>
                 Ok I'm in
               </Button>
             </CardFooter>
