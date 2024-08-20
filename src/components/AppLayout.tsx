@@ -88,7 +88,7 @@ const AppLayout = () => {
       >
         <div className="flex items-center justify-center mb-4">
           <div className="flex items-center justify-center">
-            <img className="text-background object-fill h-14" src="public/evercity_logo.png"/>
+            <img className="text-background object-fill h-14" src="https://static.tildacdn.com/tild6432-6231-4962-b536-633739353663/evercity_logo.png"/>
           </div>
         </div>
         <div className="flex flex-col gap-y-2">
