@@ -3,7 +3,7 @@ import {
   NftId, TokenId, Hbar, TransferTransaction, TransactionId,
   TokenAssociateTransaction,
 } from "@hashgraph/sdk";
-import {hc} from "../helpers/hashconnect";
+import {hc, signTransaction} from "../helpers/hashconnect";
 
 
 export const tokenAssociate = async (
@@ -36,6 +36,12 @@ export const tokenAssociate = async (
   return transactionResponse.status
 };
 
+
+const getAvailableSerialNumber = async (tokenId: string, from: string) => {
+  const response = await fetch(`https://testnet.mirrornode.hedera.com/api/v1/accounts/${from}/nfts`).then(res => res.json());
+  return response.nfts.filter((nft: {token_id: string}) => nft.token_id === tokenId).map((nft: {serial_number: number}) => nft.serial_number);
+}
+
 export const nftSwap = async ({
   tokenId,
   hBars,
@@ -49,14 +55,15 @@ export const nftSwap = async ({
   from: string;
   to: string;
 }) => {
-
+  const availableSerialNumbers = await getAvailableSerialNumber(tokenId, from)
+  const serialNumber = availableSerialNumbers[availableSerialNumbers.length - 1];
   const tx = await new TransferTransaction()
     //send hbars to issuer
     .addHbarTransfer(to, new Hbar(-hBars))
     .addHbarTransfer(issuer, new Hbar(hBars))
 
     //send nft to buyer
-    .addNftTransfer(new NftId(TokenId.fromString(tokenId), 1), from, to)
+    .addNftTransfer(new NftId(TokenId.fromString(tokenId), serialNumber), from, to)
 
     .setTransactionId(TransactionId.generate(to))
     .setNodeAccountIds([AccountId.fromString("0.0.3")])
@@ -106,9 +113,8 @@ export const mintMascot =
     .setNodeAccountIds([AccountId.fromString("0.0.3")])
     .freeze()
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const signedTx = await hc.signTransaction(AccountId.fromString(from), tx)
+
+  const signedTx = await signTransaction(AccountId.fromString(from), tx);
 
   return await fetch(`${import.meta.env.VITE_API_URL}/forwards-dapp/api/v1/mintMascot?type=${type}&accountId=${from}`, {
     method: "POST",
