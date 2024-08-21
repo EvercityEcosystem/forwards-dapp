@@ -7,6 +7,7 @@ import AppLayout from './AppLayout.tsx';
 import Projects from './Projects.tsx';
 import NFTMarketplace from './NFTMarketplace.tsx';
 import Settings from './Settings.tsx';
+import Help from './Help.tsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <Settings />,
+          },
+          {
+            path: "help",
+            element: <Help />,
           },
         ]
       },
